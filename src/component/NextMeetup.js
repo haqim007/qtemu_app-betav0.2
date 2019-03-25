@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
+import axios from "axios";
 
-export default class UpcomingMeetup extends Component {
+export default class NextMeetup extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            people: ""
+        }
+    }
+
+    componentDidMount(){
+        axios
+            .get("https://swapi.co/api/people")
+            .then(response => {
+                this.setState({
+                    people: response.data.results.map((p) => p.name+', '),
+                })
+            })
+    }
+
     render() {
         const { title, link } = this.props;
         let showLink;
@@ -32,7 +51,7 @@ export default class UpcomingMeetup extends Component {
                                         Remember to bring a photo ID to get through building security .<br /><br />
                                         ---------<br /><br />
                                         See you there!
-                                        Best, Hengki , Giovanni , Sofian, Riza, Agung The Jakarta JS Organizers
+                                        Best, {this.state.people} The Jakarta JS Organizers
                                     </p>
                                 </Col>
                             </Row>                            

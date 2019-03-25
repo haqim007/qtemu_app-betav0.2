@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Container, Row, Col } from 'react-bootstrap';
 
-export default class UpcomingMeetup extends Component {
+export default class AboutMeetup extends Component {
     render() {
         const { title, link } = this.props;
         let showLink;

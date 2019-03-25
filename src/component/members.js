@@ -10,16 +10,26 @@ export default class Members extends Component {
             people: [],
             members:"",
             titleMembers: "",
-            lihatButton: ""
+            lihatButton: "",
+            organizer: ""
         };
     }
 
     componentDidMount(){
         axios
             .get("https://swapi.co/api/people")
-            .then(response => this.setState({ 
-                people: response.data.results,
-                lihatButton: <Button variant="primary" onClick={() => this.getMembers()}>Lihat Members</Button> }))
+            .then(response => {
+                    this.setState({ 
+                    people: response.data.results,
+                    lihatButton: <Button variant="primary" onClick={() => this.getMembers()}>Lihat Members</Button>,
+                    organizer: response.data.results.map((p, id) => {
+                        if (id === 0) {
+                            return p.name
+                        }
+                    }) 
+                    });
+                }
+            )
     }
 
     getMembers = () => {
@@ -27,6 +37,17 @@ export default class Members extends Component {
             titleMembers: "Members",
             members: this.state.people.map((p, id) => <li key={id}>{p.name}</li>),
             lihatButton: <Button variant="warning" onClick={() => this.deleteMembers()}>Sembunyikan Members</Button>
+        })
+    }
+
+    getOrganizer = () => {
+        this.setState({
+            organizer: this.state.people.map((p, id) => {
+               if(id == 1){
+               console.log(p.name)
+               }
+            } ),
+            
         })
     }
 
@@ -65,7 +86,7 @@ export default class Members extends Component {
                                         </div>
                                         <div style={{ display: "table cell", verticalAlign: "middle" }}>
                                             <h6>Organizer</h6>
-                                            <p>Adhy Wiranata &nbsp;&nbsp;&nbsp;   
+                                            <p>{this.state.organizer} &nbsp;&nbsp;&nbsp;   
                                                 <a href="#">
                                                 <b>4 Others</b>
                                                 </a>

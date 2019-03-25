@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
 
-export default class UpcomingMeetup extends Component {
+export default class PastMeetup extends Component {
     constructor(props) {
         super(props);
         this.state = {
