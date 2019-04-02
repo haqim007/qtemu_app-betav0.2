@@ -10,4 +10,14 @@ class MyButton extends Component {
     }
 }
 
+// render() {
+//     console.log(this.props)
+//     const { variant, text, link } = this.props;
+
+//     return (
+//         <Button variant={variant}> <Link to={link | '#'}>{text}</Link> </Button>
+//     )
+// }
+// }
+
 export default MyButton;

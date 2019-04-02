@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Navbar,Nav} from 'react-bootstrap';
-import MyButton from './reuse/myButton';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+// import MyButton from './reuse/myButton';
 
 class NavBar extends Component {
     render() {
@@ -10,10 +12,13 @@ class NavBar extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Create Meetup</Nav.Link>
-                        <Nav.Link href="#link">Explore</Nav.Link>                        
+                        <Nav.Link href="#create_meetup">Create Meetup</Nav.Link>
+                        <Nav.Link href="#explore">Explore</Nav.Link>
+                        {/* <Nav.Link href="/about/haqim">Redux</Nav.Link>  */}
+                        <Link to="/about/haqim"><Button variant="primary"> Redux </Button> </Link>                       
                     </Nav> 
-                    <MyButton variant="primary" text="Login"></MyButton>                                     
+                    <Link to="/login"><Button variant="primary"> Login </Button> </Link>
+                    {/* <MyButton variant="primary" link="/login" text="Login"></MyButton>                                      */}
                 </Navbar.Collapse>                
             </Navbar>
         )

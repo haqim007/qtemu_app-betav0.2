@@ -40,17 +40,6 @@ export default class Members extends Component {
         })
     }
 
-    getOrganizer = () => {
-        this.setState({
-            organizer: this.state.people.map((p, id) => {
-               if(id == 1){
-               console.log(p.name)
-               }
-            } ),
-            
-        })
-    }
-
     deleteMembers = () => {
         this.setState({
             titleMembers: "",
@@ -71,7 +60,7 @@ export default class Members extends Component {
         return (
             <React.Fragment>
                 <Row>
-                    <Col style={{ textAlign: "left" }}><h5>{title}</h5></Col>
+                    <Col style={{ textAlign: "left", marginLeft: '1em' }}><h5>{title}</h5></Col>
                     {showLink}
                 </Row>
                 <Row>
@@ -81,7 +70,7 @@ export default class Members extends Component {
                                 <Row>
                                     <Col style={{ textAlign: 'left' }}>
                                         <div style={{ float: 'left', marginRight: '10px' }}>
-                                            <Image src="https://randomuser.me/api/portraits/men/34.jpg"
+                                            <Image src="https://www.listchallenges.com/f/items/ffe32285-a4f7-4239-b8f2-df7002d06280.jpg"
                                                 roundedCircle style={{ width: '70px', height: '70px', }} fluid />
                                         </div>
                                         <div style={{ display: "table cell", verticalAlign: "middle" }}>

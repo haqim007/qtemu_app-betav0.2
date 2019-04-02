@@ -31,7 +31,7 @@ export default class NextMeetup extends Component {
         return (
             <React.Fragment>
                 <Row>
-                    <Col style={{ textAlign: "left" }}><h5>{title}</h5></Col>
+                    <Col style={{ textAlign: "left", marginLeft: '1em'  }}><h5>{title}</h5></Col>
                     {showLink}
                 </Row>
                 <Row>

@@ -56,7 +56,7 @@ export default class PastMeetup extends Component {
         return (
             <React.Fragment>
                 <Row>
-                    <Col style={{ textAlign: "left" }}>
+                    <Col style={{ textAlign: "left", marginLeft: '1em'  }}>
                         <h5>{title}</h5>
                     </Col>
                     {showLink}
