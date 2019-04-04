@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
 import axios from "axios";
+import { connect } from 'react-redux';
+import { getPeople } from '../Redux/action';
+import { bindActionCreators } from 'redux';
 
-export default class NextMeetup extends Component {
+class NextMeetup extends Component {
 
     constructor(props){
         super(props)
@@ -11,18 +14,24 @@ export default class NextMeetup extends Component {
         }
     }
 
+    getPeople = () => {
+        this.props.getPeople()
+    }
+
     componentDidMount(){
-        axios
-            .get("https://swapi.co/api/people")
-            .then(response => {
-                this.setState({
-                    people: response.data.results.map((p) => p.name+', '),
-                })
-            })
+        // axios
+        //     .get("https://swapi.co/api/people")
+        //     .then(response => {
+        //         this.setState({
+        //             people: response.data.results.map((p) => p.name+', '),
+        //         })
+        //     })
+        this.getPeople()
+        
     }
 
     render() {
-        const { title, link } = this.props;
+        const { title, link, people } = this.props;
         let showLink;
 
         if (link !== undefined) {
@@ -43,7 +52,7 @@ export default class NextMeetup extends Component {
                                     <h6>Awesome meetup and event</h6>
                                     <p style={{ color: 'grey' }}>25 January 2019</p>
                                     <p>
-                                        Hello, Javascript & Mode.js Ninjas !<br />
+                                        Hello, Javascript & Node.js Ninjas !<br />
                                         Get ready for our monthly meetup JakartaJS! This will be our fifth meetup of 2018! <br />
                                         The Meetup format will contain some short stories and technical Talks .<br />
                                         If you have a short announcement you'd like to share with the audience, you may do so during open mic announcement.<br /><br />
@@ -51,7 +60,10 @@ export default class NextMeetup extends Component {
                                         Remember to bring a photo ID to get through building security .<br /><br />
                                         ---------<br /><br />
                                         See you there!
-                                        Best, {this.state.people} The Jakarta JS Organizers
+                                        Best, 
+                                        {/* {this.state.people}  */}
+                                        {people}
+                                        The Jakarta JS Organizers
                                     </p>
                                 </Col>
                             </Row>                            
@@ -65,3 +77,17 @@ export default class NextMeetup extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    getPeople
+}, dispatch);
+
+const mapStateToProps = (state) => {
+    return ({
+        number: state.angka,
+        info: state.info,
+        people: state.people.map((p) => p.name + ', ')
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NextMeetup);

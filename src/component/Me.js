@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {increment, decrement, reset} from '../Redux/action';
 import { bindActionCreators } from 'redux';

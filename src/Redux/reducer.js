@@ -26,6 +26,12 @@ const myReducer = (state = {...myStore}, action) => {
                 ...state,
                 angka: 0, //atau payload (parameter)
             })
+
+        case ('GET_PEOPLE'):
+            return ({
+                ...state,
+                people: action.payload, //atau payload (parameter)
+            })
     
         default:
             return state;

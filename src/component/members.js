@@ -2,40 +2,54 @@ import React, { Component } from 'react';
 import { Jumbotron, Container, Row, Col, Image } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import axios from "axios";
+import {connect} from "react-redux";
+import { getPeople } from '../Redux/action';
+import { bindActionCreators } from 'redux';
 
-export default class Members extends Component {
+class Members extends Component {
     constructor(props){
         super(props);
         this.state = {
-            people: [],
+        //     people: [],
             members:"",
             titleMembers: "",
             lihatButton: "",
-            organizer: ""
+        //     organizer: ""
         };
     }
 
+    getMembersData = () => {
+        this.props.getPeople();
+    }
+
     componentDidMount(){
-        axios
-            .get("https://swapi.co/api/people")
-            .then(response => {
-                    this.setState({ 
-                    people: response.data.results,
-                    lihatButton: <Button variant="primary" onClick={() => this.getMembers()}>Lihat Members</Button>,
-                    organizer: response.data.results.map((p, id) => {
-                        if (id === 0) {
-                            return p.name
-                        }
-                    }) 
-                    });
-                }
-            )
+        // axios
+        //     .get("https://swapi.co/api/people")
+        //     .then(response => {
+        //             this.setState({ 
+        //             people: response.data.results,
+        //             lihatButton: <Button variant="primary" onClick={() => this.getMembers()}>Lihat Members</Button>,
+        //             organizer: response.data.results.map((p, id) => {
+        //                 if (id === 0) {
+        //                     return p.name
+        //                 }
+        //             }) 
+        //             });
+        //         }
+        //     )
+        this.getMembersData();
+        this.setState({
+            lihatButton: <Button variant="primary" onClick={() => this.getMembers()}>Lihat Members</Button>,
+        });
+
+
     }
 
     getMembers = () => {
         this.setState({
-            titleMembers: "Members",
-            members: this.state.people.map((p, id) => <li key={id}>{p.name}</li>),
+            titleMembers: this.props.titleMembers,
+            // members: this.state.people.map((p, id) => <li key={id}>{p.name}</li>),
+            members: this.props.members,
             lihatButton: <Button variant="warning" onClick={() => this.deleteMembers()}>Sembunyikan Members</Button>
         })
     }
@@ -49,7 +63,7 @@ export default class Members extends Component {
     }
 
     render() {
-        const { title, link } = this.props;
+        const { title, link, organizer } = this.props;
         let showLink;
 
         // let members = this.state.people.map((p, id) => <li>{p.name}</li>);
@@ -75,7 +89,8 @@ export default class Members extends Component {
                                         </div>
                                         <div style={{ display: "table cell", verticalAlign: "middle" }}>
                                             <h6>Organizer</h6>
-                                            <p>{this.state.organizer} &nbsp;&nbsp;&nbsp;   
+                                            <p> {organizer}  &nbsp;&nbsp;&nbsp;
+                                            {/* {this.state.organizer}    */}
                                                 <a href="#">
                                                 <b>4 Others</b>
                                                 </a>
@@ -102,3 +117,23 @@ export default class Members extends Component {
         )
     }
 }
+
+// const mapDispatchToProps = (dispatch) => bindActionCreators({
+//     getPeople
+// },dispatch)
+
+const mapDispatchToProps = {
+    getPeople
+}
+
+const mapStateToProps = (state) => ({
+    organizer: state.people.map((p, id) => {
+        if (id == 0) {
+            return p.name
+        }
+    }),
+    members: state.people.map((p,id) => <li key={id}>{p.name}</li>),
+    titleMembers: "Members"
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Members)

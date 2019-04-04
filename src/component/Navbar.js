@@ -6,9 +6,14 @@ import { Button } from 'react-bootstrap';
 
 class NavBar extends Component {
     render() {
+        const titleStyle = {
+            color: 'white',
+            textDecoration: 'none'
+        };
+
         return (
             <Navbar bg="primary" expand="lg" variant="dark">
-                <Navbar.Brand href="#home"><b>QTemu</b></Navbar.Brand>
+                <Navbar.Brand><Link to="/" style={titleStyle}><b>QTemu</b></Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
